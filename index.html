@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRENDLAB•MAG</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@400;500&display=swap');
+
+        :root {
+            --neon-orange: #ff4d00;
+            --neon-blue: #00f0ff;
+            --neon-purple: #c724ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a0033 0%, #0a0a0a 70%);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        canvas#particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 77, 0, 0.2);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, var(--neon-orange), var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 77, 0, 0.8);
+        }
+
+        nav a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .content {
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 24px;
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px solid var(--neon-orange);
+            color: var(--neon-orange);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px rgba(255, 77, 0, 0.5);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1.05;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ffffff, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 
+                0 0 30px var(--neon-blue),
+                0 0 60px var(--neon-purple);
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        .clock-container {
+            background: rgba(10, 10, 20, 0.85);
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, var(--neon-orange), var(--neon-blue), var(--neon-purple)) 1;
+            border-radius: 20px;
+            padding: 2.5rem 4rem;
+            margin: 3rem auto;
+            max-width: 620px;
+            box-shadow: 
+                0 0 40px rgba(255, 77, 0, 0.4),
+                0 0 80px rgba(0, 240, 255, 0.3),
+                inset 0 0 30px rgba(199, 36, 255, 0.2);
+            backdrop-filter: blur(12px);
+        }
+
+        .utc-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            color: var(--neon-orange);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        #clock {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: 8px;
+            text-shadow: 
+                0 0 15px var(--neon-blue),
+                0 0 30px var(--neon-purple);
+        }
+
+        .date {
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            color: #bbb;
+        }
+
+        .cta {
+            margin-top: 3rem;
+        }
+
+        button {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--neon-orange);
+            padding: 16px 48px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 25px rgba(255, 77, 0, 0.6);
+        }
+
+        button:hover {
+            background: var(--neon-orange);
+            color: black;
+            box-shadow: 0 0 40px rgba(255, 77, 0, 0.9);
+            transform: translateY(-4px);
+        }
+
+        .features {
+            padding: 6rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .card {
+            background: rgba(20, 20, 40, 0.6);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(199, 36, 255, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(255, 255, 255, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 3;
+            animation: scan 8s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 400px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+    <div class="scanline"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">TRENDLAB<span style="color:var(--neon-orange)">•</span>MAG</div>
+            <nav>
+                <a href="#">EXPLORAR</a>
+                <a href="#">TENDÊNCIAS</a>
+                <a href="#">LAB</a>
+                <a href="#">COMUNIDADE</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="content">
+                <div class="badge">NEURO•FUTURE • 2026</div>
+                <h1>TRENDLAB<br>MAG</h1>
+                <p class="tagline">O portal quântico para as tendências que moldam o amanhã</p>
+
+                <!-- Relógio UTC Central -->
+                <div class="clock-container">
+                    <div class="utc-label">UTC TIME • LIVE</div>
+                    <div id="clock">00:00:00</div>
+                    <div id="date" class="date">11 MAI 2026</div>
+                </div>
+
+                <div class="cta">
+                    <button onclick="alert('Conectando à rede quântica... (Simulação)')">
+                        ACESSAR O LAB
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <h3 style="color:var(--neon-blue); margin-bottom:1rem;">⟐ PREVISÃO NEURAL</h3>
+                <p>Inteligência artificial que antecipa tendências com 98,7% de precisão.</p>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--neon-purple); margin-bottom:1rem;">⟡ REALIDADE AUMENTADA</h3>
+                <p>Visualize o futuro através de filtros temporais imersivos.</p>
+            </div>
+            <div class="card">
+                <h3 style="color:var(--neon-orange); margin-bottom:1rem;">⟡ PARTICLES LIVE</h3>
+                <p>Dados em tempo real transformados em partículas quânticas interativas.</p>
+            </div>
+        </section>
+
+        <footer>
+            © 2026 TrendLab Mag • Uma experiência fictícia futurista • Todos os direitos quânticos reservados
+        </footer>
+    </div>
+
+    <script>
+        // Canvas Particles
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        
+        let particles = [];
+        let mouse = { x: 0, y: 0 };
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1.5 - 0.75;
+                this.speedY = Math.random() * 1.5 - 0.75;
+                this.hue = Math.random() * 60 + 280; // tons de roxo / azul / laranja
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Repulsão do mouse
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 150) {
+                    const force = (150 - distance) / 150;
+                    this.speedX -= (dx / distance) * force * 2;
+                    this.speedY -= (dy / distance) * force * 2;
+                }
+                
+                // Suavizar velocidade
+                this.speedX *= 0.98;
+                this.speedY *= 0.98;
+                
+                // Manter na tela
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            
+            draw() {
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 85%, 0.9)`;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = `hsl(${this.hue}, 100%, 70%)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function initParticles() {
+            particles = [];
+            const count = Math.floor(window.innerWidth * window.innerHeight / 9000);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle(
+                    Math.random() * canvas.width,
+                    Math.random() * canvas.height
+                ));
+            }
+        }
+        
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            
+            // Conexões leves
+            ctx.strokeStyle = 'rgba(0, 240, 255, 0.08)';
+            ctx.lineWidth = 0.8;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 110) {
+                        ctx.globalAlpha = (110 - distance) / 110 * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            ctx.globalAlpha = 1;
+            
+            requestAnimationFrame(animateParticles);
+        }
+        
+        // Mouse tracking
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        
+        // Clock UTC
+        function updateClock() {
+            const clockEl = document.getElementById('clock');
+            const dateEl = document.getElementById('date');
+            
+            setInterval(() => {
+                const now = new Date();
+                const utc = new Date(now.toUTCString());
+                
+                // Formato HH:MM:SS
+                let hours = utc.getUTCHours().toString().padStart(2, '0');
+                let minutes = utc.getUTCMinutes().toString().padStart(2, '0');
+                let seconds = utc.getUTCSeconds().toString().padStart(2, '0');
+                
+                clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+                
+                // Data
+                const options = { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                };
+                const dateStr = utc.toLocaleDateString('pt-BR', options).toUpperCase();
+                dateEl.textContent = dateStr;
+            }, 1000);
+        }
+        
+        // Inicialização
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            initParticles();
+            animateParticles();
+            updateClock();
+            
+            // Responsivo
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                initParticles();
+            });
+        });
+        
+        // Efeito de clique nas partículas
+        canvas.addEventListener('click', (e) => {
+            for (let i = 0; i < 35; i++) {
+                const p = new Particle(e.clientX, e.clientY);
+                p.speedX = Math.random() * 8 - 4;
+                p.speedY = Math.random() * 8 - 4;
+                p.size = Math.random() * 5 + 2;
+                particles.push(p);
+            }
+        });
+    </script>
+</body>
+</html>
