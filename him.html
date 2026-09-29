@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#244f48">
+<title>Plano de Leitura do Novo Testamento — Versão Masculina</title>
+<style>
+  :root{
+      --page:#f5f8f7; --surface:#ffffff; --surface2:#f0f5f3; --ink:#1f2d2a; --muted:#66736f;
+      --line:#dbe5e1; --primary:#244f48; --primary2:#3f7469; --deep:#173a34; --soft:#e6f0ed;
+      --success:#397359; --gold:#a47a3b; --shadow:0 16px 40px rgba(24,58,52,.11);
+      --radius:22px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 90% 0%, rgba(60,112,102,.16), transparent 32%), radial-gradient(circle at 0% 15%, rgba(39,76,69,.10), transparent 30%), linear-gradient(180deg,#f9fbfa 0%,#f2f6f5 100%);min-height:100vh}
+  button,input{font:inherit}
+  .app{width:min(1040px,calc(100% - 24px));margin:18px auto 42px}
+  .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#173b35 0%,#2e5d54 56%,#567e74 100%);color:#fff;border-radius:30px;padding:30px;box-shadow:0 20px 55px rgba(50,35,44,.18)}
+  .hero::after{content:"✚";position:absolute;right:24px;top:4px;font-family:Georgia,serif;font-size:180px;line-height:1;color:rgba(255,255,255,.07);transform:rotate(-7deg);pointer-events:none}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.4fr .8fr;gap:28px;align-items:center}
+  .kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid rgba(255,255,255,.22);border-radius:999px;background:rgba(255,255,255,.10);font-size:.82rem;font-weight:700;letter-spacing:.02em}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(2rem,4vw,3.4rem);line-height:1.04;margin:14px 0 10px;letter-spacing:-.025em;font-weight:600}
+  .hero p{margin:0;line-height:1.65;color:rgba(255,255,255,.88);max-width:60ch}
+  .verse{margin-top:18px!important;padding-left:14px;border-left:2px solid rgba(255,255,255,.45);font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:.98rem}
+  .verse small{display:block;margin-top:4px;font-family:Inter,ui-sans-serif,system-ui;font-style:normal;opacity:.78}
+  .progress-card{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(8px);border-radius:24px;padding:18px}
+  .progress-top{display:flex;align-items:center;gap:15px}
+  .ring{--p:0deg;position:relative;width:92px;height:92px;border-radius:50%;background:conic-gradient(#fff var(--p),rgba(255,255,255,.18) 0);display:grid;place-items:center;flex:0 0 auto}
+  .ring::before{content:"";position:absolute;inset:10px;border-radius:50%;background:var(--deep)}
+  .ring-text{position:relative;text-align:center;z-index:1}
+  .ring-text strong{display:block;font-size:1.05rem}
+  .ring-text span{font-size:.7rem;opacity:.8}
+  .progress-copy strong{display:block;font-size:1rem}
+  .progress-copy span{display:block;margin-top:4px;font-size:.86rem;color:rgba(255,255,255,.8)}
+  .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+  .mini-stat{background:rgba(255,255,255,.09);border-radius:14px;padding:10px;text-align:center}
+  .mini-stat b{display:block;font-size:1rem}
+  .mini-stat span{display:block;font-size:.7rem;margin-top:2px;opacity:.75}
+  .overview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+  .overview-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow)}
+  .overview-card span{display:block;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .overview-card strong{display:block;margin-top:5px;font-family:Georgia,"Times New Roman",serif;font-size:1.05rem}
+  details.tools{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);margin:16px 0;overflow:hidden}
+  details.tools summary{list-style:none;cursor:pointer;padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:750}
+  details.tools summary::-webkit-details-marker{display:none}
+  details.tools summary::after{content:"+";width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--soft);color:var(--primary);font-size:1.2rem}
+  details.tools[open] summary::after{content:"−"}
+  .tools-body{border-top:1px solid var(--line);padding:14px}
+  .tools-grid{display:grid;grid-template-columns:1fr auto;gap:10px}
+  .search{display:flex;align-items:center;gap:9px;background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:11px 13px}
+  .search input{width:100%;border:0;outline:0;background:transparent;color:var(--ink);min-width:0}
+  .filter{display:flex;gap:5px;padding:4px;background:var(--surface2);border:1px solid var(--line);border-radius:14px}
+  .filter button{border:0;background:transparent;color:var(--muted);font-weight:700;padding:8px 11px;border-radius:10px;cursor:pointer}
+  .filter button.active{background:var(--surface);color:var(--primary);box-shadow:0 3px 10px rgba(0,0,0,.05)}
+  .tool-actions{display:flex;gap:9px;margin-top:10px;flex-wrap:wrap}
+  .btn{border:0;border-radius:13px;padding:10px 13px;font-weight:750;cursor:pointer}
+  .btn-primary{background:var(--primary);color:#fff}
+  .btn-secondary{background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+  .month{margin-top:18px}
+  .month-head{display:flex;align-items:end;justify-content:space-between;gap:12px;padding:0 3px 9px}
+  .month-head h2{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:1.5rem;font-weight:600}
+  .month-head span{color:var(--muted);font-size:.84rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:11px}
+  .day-card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 16px 15px 19px;box-shadow:0 8px 22px rgba(40,40,50,.05);transition:.18s ease}
+  .day-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .day-card.completed{background:linear-gradient(180deg,var(--surface),color-mix(in srgb,var(--success) 6%,white));border-color:color-mix(in srgb,var(--success) 30%,var(--line))}
+  .day-card.next{outline:2px solid color-mix(in srgb,var(--gold) 45%,transparent)}
+  
+    .day-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--primary);opacity:.5}
+
+  .card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:var(--surface2);color:var(--muted);font-size:.72rem;font-weight:750}
+  .badge.next{background:color-mix(in srgb,var(--gold) 13%,white);color:#7b5b28}
+  .badge.done{background:color-mix(in srgb,var(--success) 11%,white);color:var(--success)}
+  .date-title{margin:12px 0 2px;font-size:1.02rem;text-transform:capitalize}
+  .date-short{margin:0;color:var(--muted);font-size:.82rem}
+  .reading{margin-top:12px;padding:12px 13px;border-radius:15px;background:var(--surface2);font-family:Georgia,"Times New Roman",serif;font-size:1.08rem;font-weight:600;line-height:1.45;color:var(--deep)}
+  .check-row{display:flex;align-items:center;gap:11px;margin-top:12px;padding:11px 12px;border-radius:15px;border:1px solid var(--line);cursor:pointer;background:rgba(255,255,255,.55)}
+  .check-row input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:2px solid color-mix(in srgb,var(--muted) 45%,white);border-radius:7px;margin:0;display:grid;place-items:center;flex:0 0 auto;background:#fff}
+  .check-row input::after{content:"✓";font-size:.86rem;font-weight:900;color:#fff;transform:scale(0);transition:.12s}
+  .check-row input:checked{background:var(--success);border-color:var(--success)}
+  .check-row input:checked::after{transform:scale(1)}
+  .check-copy strong{display:block;font-size:.88rem}
+  .check-copy span{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}
+  .empty{display:none;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;color:var(--muted)}
+  .footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:24px}
+  @media(max-width:760px){
+    .app{width:min(100% - 14px,1040px);margin-top:8px}
+    .hero{border-radius:22px;padding:22px 18px}
+    .hero-grid{grid-template-columns:1fr;gap:18px}
+    .hero::after{font-size:125px;right:-5px}
+    .progress-card{padding:15px}
+    .overview{grid-template-columns:1fr}
+    .tools-grid{grid-template-columns:1fr}
+    .filter{display:grid;grid-template-columns:repeat(3,1fr)}
+    .filter button{padding:9px 5px}
+    .cards{grid-template-columns:1fr}
+    .month-head{align-items:center}
+  }
+</style>
+</head>
+<body>
+<main class="app">
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">◆ Fé • Disciplina • Constância</div>
+        <h1>Plano de Leitura<br>do Novo Testamento</h1>
+        <p>Uma jornada pelo Novo Testamento, de Mateus a Apocalipse. São 260 capítulos distribuídos em 92 dias, com aproximadamente 2 a 3 capítulos por dia.</p>
+        <p class="verse">“Sê forte e corajoso.”<small>Josué 1:9</small></p>
+      </div>
+      <aside class="progress-card">
+        <div class="progress-top">
+          <div class="ring" id="ring"><div class="ring-text"><strong id="pct">0%</strong><span>concluído</span></div></div>
+          <div class="progress-copy"><strong>Seu progresso</strong><span id="progressText">0 de 92 dias concluídos</span></div>
+        </div>
+        <div class="mini-stats">
+          <div class="mini-stat"><b id="done">0</b><span>concluídos</span></div>
+          <div class="mini-stat"><b id="remaining">92</b><span>restantes</span></div>
+          <div class="mini-stat"><b>260</b><span>capítulos</span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="overview">
+    <div class="overview-card"><span>Início</span><strong>29 de setembro de 2026</strong></div>
+    <div class="overview-card"><span>Término</span><strong>29 de dezembro de 2026</strong></div>
+    <div class="overview-card"><span>Leitura</span><strong>Mateus → Apocalipse</strong></div>
+  </section>
+
+  <details class="tools">
+    <summary>Ferramentas do plano</summary>
+    <div class="tools-body">
+      <div class="tools-grid">
+        <label class="search">⌕ <input id="search" type="search" placeholder="Pesquisar livro, data ou mês"></label>
+        <div class="filter">
+          <button class="active" data-filter="all">Todos</button>
+          <button data-filter="pending">Pendentes</button>
+          <button data-filter="completed">Concluídos</button>
+        </div>
+      </div>
+      <div class="tool-actions">
+        <button class="btn btn-primary" id="nextBtn">Ir para a próxima leitura</button>
+        <button class="btn btn-secondary" id="resetBtn">Resetar progresso</button>
+      </div>
+    </div>
+  </details>
+
+  <div id="plan"></div>
+  <div id="empty" class="empty"><strong>Nenhuma leitura encontrada.</strong><br>Altere a pesquisa ou o filtro.</div>
+  <div class="footer">O progresso fica salvo somente neste navegador.</div>
+</main>
+<script>
+const DAYS=[{"id": 0, "iso": "2026-09-29", "date": "terça-feira, 29 de setembro de 2026", "short": "29/09/2026", "month": "Setembro 2026", "reading": "Mateus 1–2", "chapters": 2}, {"id": 1, "iso": "2026-09-30", "date": "quarta-feira, 30 de setembro de 2026", "short": "30/09/2026", "month": "Setembro 2026", "reading": "Mateus 3–5", "chapters": 3}, {"id": 2, "iso": "2026-10-01", "date": "quinta-feira, 1 de outubro de 2026", "short": "01/10/2026", "month": "Outubro 2026", "reading": "Mateus 6–8", "chapters": 3}, {"id": 3, "iso": "2026-10-02", "date": "sexta-feira, 2 de outubro de 2026", "short": "02/10/2026", "month": "Outubro 2026", "reading": "Mateus 9–11", "chapters": 3}, {"id": 4, "iso": "2026-10-03", "date": "sábado, 3 de outubro de 2026", "short": "03/10/2026", "month": "Outubro 2026", "reading": "Mateus 12–14", "chapters": 3}, {"id": 5, "iso": "2026-10-04", "date": "domingo, 4 de outubro de 2026", "short": "04/10/2026", "month": "Outubro 2026", "reading": "Mateus 15–17", "chapters": 3}, {"id": 6, "iso": "2026-10-05", "date": "segunda-feira, 5 de outubro de 2026", "short": "05/10/2026", "month": "Outubro 2026", "reading": "Mateus 18–19", "chapters": 2}, {"id": 7, "iso": "2026-10-06", "date": "terça-feira, 6 de outubro de 2026", "short": "06/10/2026", "month": "Outubro 2026", "reading": "Mateus 20–22", "chapters": 3}, {"id": 8, "iso": "2026-10-07", "date": "quarta-feira, 7 de outubro de 2026", "short": "07/10/2026", "month": "Outubro 2026", "reading": "Mateus 23–25", "chapters": 3}, {"id": 9, "iso": "2026-10-08", "date": "quinta-feira, 8 de outubro de 2026", "short": "08/10/2026", "month": "Outubro 2026", "reading": "Mateus 26–28", "chapters": 3}, {"id": 10, "iso": "2026-10-09", "date": "sexta-feira, 9 de outubro de 2026", "short": "09/10/2026", "month": "Outubro 2026", "reading": "Marcos 1–3", "chapters": 3}, {"id": 11, "iso": "2026-10-10", "date": "sábado, 10 de outubro de 2026", "short": "10/10/2026", "month": "Outubro 2026", "reading": "Marcos 4–6", "chapters": 3}, {"id": 12, "iso": "2026-10-11", "date": "domingo, 11 de outubro de 2026", "short": "11/10/2026", "month": "Outubro 2026", "reading": "Marcos 7–8", "chapters": 2}, {"id": 13, "iso": "2026-10-12", "date": "segunda-feira, 12 de outubro de 2026", "short": "12/10/2026", "month": "Outubro 2026", "reading": "Marcos 9–11", "chapters": 3}, {"id": 14, "iso": "2026-10-13", "date": "terça-feira, 13 de outubro de 2026", "short": "13/10/2026", "month": "Outubro 2026", "reading": "Marcos 12–14", "chapters": 3}, {"id": 15, "iso": "2026-10-14", "date": "quarta-feira, 14 de outubro de 2026", "short": "14/10/2026", "month": "Outubro 2026", "reading": "Marcos 15–16 • Lucas 1", "chapters": 3}, {"id": 16, "iso": "2026-10-15", "date": "quinta-feira, 15 de outubro de 2026", "short": "15/10/2026", "month": "Outubro 2026", "reading": "Lucas 2–4", "chapters": 3}, {"id": 17, "iso": "2026-10-16", "date": "sexta-feira, 16 de outubro de 2026", "short": "16/10/2026", "month": "Outubro 2026", "reading": "Lucas 5–7", "chapters": 3}, {"id": 18, "iso": "2026-10-17", "date": "sábado, 17 de outubro de 2026", "short": "17/10/2026", "month": "Outubro 2026", "reading": "Lucas 8–9", "chapters": 2}, {"id": 19, "iso": "2026-10-18", "date": "domingo, 18 de outubro de 2026", "short": "18/10/2026", "month": "Outubro 2026", "reading": "Lucas 10–12", "chapters": 3}, {"id": 20, "iso": "2026-10-19", "date": "segunda-feira, 19 de outubro de 2026", "short": "19/10/2026", "month": "Outubro 2026", "reading": "Lucas 13–15", "chapters": 3}, {"id": 21, "iso": "2026-10-20", "date": "terça-feira, 20 de outubro de 2026", "short": "20/10/2026", "month": "Outubro 2026", "reading": "Lucas 16–18", "chapters": 3}, {"id": 22, "iso": "2026-10-21", "date": "quarta-feira, 21 de outubro de 2026", "short": "21/10/2026", "month": "Outubro 2026", "reading": "Lucas 19–21", "chapters": 3}, {"id": 23, "iso": "2026-10-22", "date": "quinta-feira, 22 de outubro de 2026", "short": "22/10/2026", "month": "Outubro 2026", "reading": "Lucas 22–24", "chapters": 3}, {"id": 24, "iso": "2026-10-23", "date": "sexta-feira, 23 de outubro de 2026", "short": "23/10/2026", "month": "Outubro 2026", "reading": "João 1–2", "chapters": 2}, {"id": 25, "iso": "2026-10-24", "date": "sábado, 24 de outubro de 2026", "short": "24/10/2026", "month": "Outubro 2026", "reading": "João 3–5", "chapters": 3}, {"id": 26, "iso": "2026-10-25", "date": "domingo, 25 de outubro de 2026", "short": "25/10/2026", "month": "Outubro 2026", "reading": "João 6–8", "chapters": 3}, {"id": 27, "iso": "2026-10-26", "date": "segunda-feira, 26 de outubro de 2026", "short": "26/10/2026", "month": "Outubro 2026", "reading": "João 9–11", "chapters": 3}, {"id": 28, "iso": "2026-10-27", "date": "terça-feira, 27 de outubro de 2026", "short": "27/10/2026", "month": "Outubro 2026", "reading": "João 12–14", "chapters": 3}, {"id": 29, "iso": "2026-10-28", "date": "quarta-feira, 28 de outubro de 2026", "short": "28/10/2026", "month": "Outubro 2026", "reading": "João 15–17", "chapters": 3}, {"id": 30, "iso": "2026-10-29", "date": "quinta-feira, 29 de outubro de 2026", "short": "29/10/2026", "month": "Outubro 2026", "reading": "João 18–19", "chapters": 2}, {"id": 31, "iso": "2026-10-30", "date": "sexta-feira, 30 de outubro de 2026", "short": "30/10/2026", "month": "Outubro 2026", "reading": "João 20–21 • Atos 1", "chapters": 3}, {"id": 32, "iso": "2026-10-31", "date": "sábado, 31 de outubro de 2026", "short": "31/10/2026", "month": "Outubro 2026", "reading": "Atos 2–4", "chapters": 3}, {"id": 33, "iso": "2026-11-01", "date": "domingo, 1 de novembro de 2026", "short": "01/11/2026", "month": "Novembro 2026", "reading": "Atos 5–7", "chapters": 3}, {"id": 34, "iso": "2026-11-02", "date": "segunda-feira, 2 de novembro de 2026", "short": "02/11/2026", "month": "Novembro 2026", "reading": "Atos 8–10", "chapters": 3}, {"id": 35, "iso": "2026-11-03", "date": "terça-feira, 3 de novembro de 2026", "short": "03/11/2026", "month": "Novembro 2026", "reading": "Atos 11–13", "chapters": 3}, {"id": 36, "iso": "2026-11-04", "date": "quarta-feira, 4 de novembro de 2026", "short": "04/11/2026", "month": "Novembro 2026", "reading": "Atos 14–15", "chapters": 2}, {"id": 37, "iso": "2026-11-05", "date": "quinta-feira, 5 de novembro de 2026", "short": "05/11/2026", "month": "Novembro 2026", "reading": "Atos 16–18", "chapters": 3}, {"id": 38, "iso": "2026-11-06", "date": "sexta-feira, 6 de novembro de 2026", "short": "06/11/2026", "month": "Novembro 2026", "reading": "Atos 19–21", "chapters": 3}, {"id": 39, "iso": "2026-11-07", "date": "sábado, 7 de novembro de 2026", "short": "07/11/2026", "month": "Novembro 2026", "reading": "Atos 22–24", "chapters": 3}, {"id": 40, "iso": "2026-11-08", "date": "domingo, 8 de novembro de 2026", "short": "08/11/2026", "month": "Novembro 2026", "reading": "Atos 25–27", "chapters": 3}, {"id": 41, "iso": "2026-11-09", "date": "segunda-feira, 9 de novembro de 2026", "short": "09/11/2026", "month": "Novembro 2026", "reading": "Atos 28 • Romanos 1–2", "chapters": 3}, {"id": 42, "iso": "2026-11-10", "date": "terça-feira, 10 de novembro de 2026", "short": "10/11/2026", "month": "Novembro 2026", "reading": "Romanos 3–4", "chapters": 2}, {"id": 43, "iso": "2026-11-11", "date": "quarta-feira, 11 de novembro de 2026", "short": "11/11/2026", "month": "Novembro 2026", "reading": "Romanos 5–7", "chapters": 3}, {"id": 44, "iso": "2026-11-12", "date": "quinta-feira, 12 de novembro de 2026", "short": "12/11/2026", "month": "Novembro 2026", "reading": "Romanos 8–10", "chapters": 3}, {"id": 45, "iso": "2026-11-13", "date": "sexta-feira, 13 de novembro de 2026", "short": "13/11/2026", "month": "Novembro 2026", "reading": "Romanos 11–13", "chapters": 3}, {"id": 46, "iso": "2026-11-14", "date": "sábado, 14 de novembro de 2026", "short": "14/11/2026", "month": "Novembro 2026", "reading": "Romanos 14–16", "chapters": 3}, {"id": 47, "iso": "2026-11-15", "date": "domingo, 15 de novembro de 2026", "short": "15/11/2026", "month": "Novembro 2026", "reading": "1 Coríntios 1–3", "chapters": 3}, {"id": 48, "iso": "2026-11-16", "date": "segunda-feira, 16 de novembro de 2026", "short": "16/11/2026", "month": "Novembro 2026", "reading": "1 Coríntios 4–6", "chapters": 3}, {"id": 49, "iso": "2026-11-17", "date": "terça-feira, 17 de novembro de 2026", "short": "17/11/2026", "month": "Novembro 2026", "reading": "1 Coríntios 7–8", "chapters": 2}, {"id": 50, "iso": "2026-11-18", "date": "quarta-feira, 18 de novembro de 2026", "short": "18/11/2026", "month": "Novembro 2026", "reading": "1 Coríntios 9–11", "chapters": 3}, {"id": 51, "iso": "2026-11-19", "date": "quinta-feira, 19 de novembro de 2026", "short": "19/11/2026", "month": "Novembro 2026", "reading": "1 Coríntios 12–14", "chapters": 3}, {"id": 52, "iso": "2026-11-20", "date": "sexta-feira, 20 de novembro de 2026", "short": "20/11/2026", "month": "Novembro 2026", "reading": "1 Coríntios 15–16 • 2 Coríntios 1", "chapters": 3}, {"id": 53, "iso": "2026-11-21", "date": "sábado, 21 de novembro de 2026", "short": "21/11/2026", "month": "Novembro 2026", "reading": "2 Coríntios 2–4", "chapters": 3}, {"id": 54, "iso": "2026-11-22", "date": "domingo, 22 de novembro de 2026", "short": "22/11/2026", "month": "Novembro 2026", "reading": "2 Coríntios 5–7", "chapters": 3}, {"id": 55, "iso": "2026-11-23", "date": "segunda-feira, 23 de novembro de 2026", "short": "23/11/2026", "month": "Novembro 2026", "reading": "2 Coríntios 8–9", "chapters": 2}, {"id": 56, "iso": "2026-11-24", "date": "terça-feira, 24 de novembro de 2026", "short": "24/11/2026", "month": "Novembro 2026", "reading": "2 Coríntios 10–12", "chapters": 3}, {"id": 57, "iso": "2026-11-25", "date": "quarta-feira, 25 de novembro de 2026", "short": "25/11/2026", "month": "Novembro 2026", "reading": "2 Coríntios 13 • Gálatas 1–2", "chapters": 3}, {"id": 58, "iso": "2026-11-26", "date": "quinta-feira, 26 de novembro de 2026", "short": "26/11/2026", "month": "Novembro 2026", "reading": "Gálatas 3–5", "chapters": 3}, {"id": 59, "iso": "2026-11-27", "date": "sexta-feira, 27 de novembro de 2026", "short": "27/11/2026", "month": "Novembro 2026", "reading": "Gálatas 6 • Efésios 1–2", "chapters": 3}, {"id": 60, "iso": "2026-11-28", "date": "sábado, 28 de novembro de 2026", "short": "28/11/2026", "month": "Novembro 2026", "reading": "Efésios 3–5", "chapters": 3}, {"id": 61, "iso": "2026-11-29", "date": "domingo, 29 de novembro de 2026", "short": "29/11/2026", "month": "Novembro 2026", "reading": "Efésios 6 • Filipenses 1", "chapters": 2}, {"id": 62, "iso": "2026-11-30", "date": "segunda-feira, 30 de novembro de 2026", "short": "30/11/2026", "month": "Novembro 2026", "reading": "Filipenses 2–4", "chapters": 3}, {"id": 63, "iso": "2026-12-01", "date": "terça-feira, 1 de dezembro de 2026", "short": "01/12/2026", "month": "Dezembro 2026", "reading": "Colossenses 1–3", "chapters": 3}, {"id": 64, "iso": "2026-12-02", "date": "quarta-feira, 2 de dezembro de 2026", "short": "02/12/2026", "month": "Dezembro 2026", "reading": "Colossenses 4 • 1 Tessalonicenses 1–2", "chapters": 3}, {"id": 65, "iso": "2026-12-03", "date": "quinta-feira, 3 de dezembro de 2026", "short": "03/12/2026", "month": "Dezembro 2026", "reading": "1 Tessalonicenses 3–5", "chapters": 3}, {"id": 66, "iso": "2026-12-04", "date": "sexta-feira, 4 de dezembro de 2026", "short": "04/12/2026", "month": "Dezembro 2026", "reading": "2 Tessalonicenses 1–3", "chapters": 3}, {"id": 67, "iso": "2026-12-05", "date": "sábado, 5 de dezembro de 2026", "short": "05/12/2026", "month": "Dezembro 2026", "reading": "1 Timóteo 1–2", "chapters": 2}, {"id": 68, "iso": "2026-12-06", "date": "domingo, 6 de dezembro de 2026", "short": "06/12/2026", "month": "Dezembro 2026", "reading": "1 Timóteo 3–5", "chapters": 3}, {"id": 69, "iso": "2026-12-07", "date": "segunda-feira, 7 de dezembro de 2026", "short": "07/12/2026", "month": "Dezembro 2026", "reading": "1 Timóteo 6 • 2 Timóteo 1–2", "chapters": 3}, {"id": 70, "iso": "2026-12-08", "date": "terça-feira, 8 de dezembro de 2026", "short": "08/12/2026", "month": "Dezembro 2026", "reading": "2 Timóteo 3–4 • Tito 1", "chapters": 3}, {"id": 71, "iso": "2026-12-09", "date": "quarta-feira, 9 de dezembro de 2026", "short": "09/12/2026", "month": "Dezembro 2026", "reading": "Tito 2–3 • Filemom 1", "chapters": 3}, {"id": 72, "iso": "2026-12-10", "date": "quinta-feira, 10 de dezembro de 2026", "short": "10/12/2026", "month": "Dezembro 2026", "reading": "Hebreus 1–3", "chapters": 3}, {"id": 73, "iso": "2026-12-11", "date": "sexta-feira, 11 de dezembro de 2026", "short": "11/12/2026", "month": "Dezembro 2026", "reading": "Hebreus 4–5", "chapters": 2}, {"id": 74, "iso": "2026-12-12", "date": "sábado, 12 de dezembro de 2026", "short": "12/12/2026", "month": "Dezembro 2026", "reading": "Hebreus 6–8", "chapters": 3}, {"id": 75, "iso": "2026-12-13", "date": "domingo, 13 de dezembro de 2026", "short": "13/12/2026", "month": "Dezembro 2026", "reading": "Hebreus 9–11", "chapters": 3}, {"id": 76, "iso": "2026-12-14", "date": "segunda-feira, 14 de dezembro de 2026", "short": "14/12/2026", "month": "Dezembro 2026", "reading": "Hebreus 12–13 • Tiago 1", "chapters": 3}, {"id": 77, "iso": "2026-12-15", "date": "terça-feira, 15 de dezembro de 2026", "short": "15/12/2026", "month": "Dezembro 2026", "reading": "Tiago 2–4", "chapters": 3}, {"id": 78, "iso": "2026-12-16", "date": "quarta-feira, 16 de dezembro de 2026", "short": "16/12/2026", "month": "Dezembro 2026", "reading": "Tiago 5 • 1 Pedro 1–2", "chapters": 3}, {"id": 79, "iso": "2026-12-17", "date": "quinta-feira, 17 de dezembro de 2026", "short": "17/12/2026", "month": "Dezembro 2026", "reading": "1 Pedro 3–4", "chapters": 2}, {"id": 80, "iso": "2026-12-18", "date": "sexta-feira, 18 de dezembro de 2026", "short": "18/12/2026", "month": "Dezembro 2026", "reading": "1 Pedro 5 • 2 Pedro 1–2", "chapters": 3}, {"id": 81, "iso": "2026-12-19", "date": "sábado, 19 de dezembro de 2026", "short": "19/12/2026", "month": "Dezembro 2026", "reading": "2 Pedro 3 • 1 João 1–2", "chapters": 3}, {"id": 82, "iso": "2026-12-20", "date": "domingo, 20 de dezembro de 2026", "short": "20/12/2026", "month": "Dezembro 2026", "reading": "1 João 3–5", "chapters": 3}, {"id": 83, "iso": "2026-12-21", "date": "segunda-feira, 21 de dezembro de 2026", "short": "21/12/2026", "month": "Dezembro 2026", "reading": "2 João 1 • 3 João 1 • Judas 1", "chapters": 3}, {"id": 84, "iso": "2026-12-22", "date": "terça-feira, 22 de dezembro de 2026", "short": "22/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 1–3", "chapters": 3}, {"id": 85, "iso": "2026-12-23", "date": "quarta-feira, 23 de dezembro de 2026", "short": "23/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 4–5", "chapters": 2}, {"id": 86, "iso": "2026-12-24", "date": "quinta-feira, 24 de dezembro de 2026", "short": "24/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 6–8", "chapters": 3}, {"id": 87, "iso": "2026-12-25", "date": "sexta-feira, 25 de dezembro de 2026", "short": "25/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 9–11", "chapters": 3}, {"id": 88, "iso": "2026-12-26", "date": "sábado, 26 de dezembro de 2026", "short": "26/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 12–14", "chapters": 3}, {"id": 89, "iso": "2026-12-27", "date": "domingo, 27 de dezembro de 2026", "short": "27/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 15–17", "chapters": 3}, {"id": 90, "iso": "2026-12-28", "date": "segunda-feira, 28 de dezembro de 2026", "short": "28/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 18–20", "chapters": 3}, {"id": 91, "iso": "2026-12-29", "date": "terça-feira, 29 de dezembro de 2026", "short": "29/12/2026", "month": "Dezembro 2026", "reading": "Apocalipse 21–22", "chapters": 2}];
+const STORAGE_KEY="nt-29set-29dez-2026-masculino-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}')}catch(e){state={}}
+let filter='all';
+let query='';
+const plan=document.getElementById('plan');
+const empty=document.getElementById('empty');
+const ring=document.getElementById('ring');
+const pct=document.getElementById('pct');
+const progressText=document.getElementById('progressText');
+const doneEl=document.getElementById('done');
+const remainingEl=document.getElementById('remaining');
+const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const completed=id=>!!state[id];
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function nextPending(){const d=DAYS.find(x=>!completed(x.id));return d?d.id:null}
+function updateProgress(){
+ const done=DAYS.filter(d=>completed(d.id)).length;
+ const percent=Math.round(done/DAYS.length*100);
+ pct.textContent=percent+'%'; progressText.textContent=`${done} de ${DAYS.length} dias concluídos`;
+ doneEl.textContent=done; remainingEl.textContent=DAYS.length-done; ring.style.setProperty('--p',(percent*3.6)+'deg');
+}
+function match(d){
+ if(filter==='pending'&&completed(d.id))return false;
+ if(filter==='completed'&&!completed(d.id))return false;
+ if(query&&!norm(d.date+' '+d.short+' '+d.month+' '+d.reading).includes(norm(query)))return false;
+ return true;
+}
+function render(){
+ const visible=DAYS.filter(match); plan.innerHTML=''; empty.style.display=visible.length?'none':'block';
+ const groups=new Map(); visible.forEach(d=>{if(!groups.has(d.month))groups.set(d.month,[]);groups.get(d.month).push(d)});
+ const next=nextPending();
+ groups.forEach((items,month)=>{
+   const sec=document.createElement('section'); sec.className='month';
+   const doneMonth=items.filter(d=>completed(d.id)).length;
+   sec.innerHTML=`<div class="month-head"><h2>${month}</h2><span>${doneMonth}/${items.length} concluídos</span></div><div class="cards"></div>`;
+   const cards=sec.querySelector('.cards');
+   items.forEach(d=>{
+     const done=completed(d.id), isNext=d.id===next;
+     const card=document.createElement('article'); card.className='day-card'+(done?' completed':'')+(isNext?' next':'');
+     const badge=done?'<span class="badge done">✓ Concluído</span>':isNext?'<span class="badge next">Próxima leitura</span>':'<span class="badge">Leitura diária</span>';
+     card.innerHTML=`<div class="card-top">${badge}<span class="badge">Dia ${d.id+1}</span></div>
+       <h3 class="date-title">${d.date}</h3><p class="date-short">${d.short}</p>
+       <div class="reading">${d.reading}</div>
+       <label class="check-row"><input type="checkbox" data-id="${d.id}" ${done?'checked':''}><span class="check-copy"><strong>${done?'Leitura concluída':'Marcar como concluída'}</strong><span>${d.chapters} capítulos • progresso salvo automaticamente</span></span></label>`;
+     cards.appendChild(card);
+   });
+   plan.appendChild(sec);
+ });
+ document.querySelectorAll('input[data-id]').forEach(cb=>cb.addEventListener('change',e=>{
+   const id=e.target.dataset.id; if(e.target.checked)state[id]=true;else delete state[id]; save(); render();
+ }));
+ updateProgress();
+}
+document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');filter=btn.dataset.filter;render();
+}));
+document.getElementById('search').addEventListener('input',e=>{query=e.target.value.trim();render()});
+document.getElementById('nextBtn').addEventListener('click',()=>{
+ const id=nextPending(); if(id===null){alert('Plano concluído!');return}
+ filter='all';query='';document.getElementById('search').value='';document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));render();
+ const cb=document.querySelector(`input[data-id="${id}"]`); if(cb)cb.closest('.day-card').scrollIntoView({behavior:'smooth',block:'center'});
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{if(confirm('Deseja apagar todo o progresso deste plano?')){state={};save();render()}});
+render();
+</script>
+</body>
+</html>
